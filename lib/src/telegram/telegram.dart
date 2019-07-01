@@ -324,11 +324,12 @@ class Telegram {
 
     if (document is io.File) {
       // filename cannot be empty to post to Telegram server
+      var filename = document.path.split('/').last;
       List<http.MultipartFile> files = List.filled(
           1,
           http.MultipartFile(
               'document', document.openRead(), document.lengthSync(),
-              filename: '${document.lengthSync()}'));
+              filename: '$filename'));
       if (thumb != null) {
         if (thumb is io.File) {
           files.add(http.MultipartFile(
